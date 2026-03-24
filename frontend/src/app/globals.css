@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brand: #e91e63;
+}
+
+body {
+  @apply bg-slate-50 text-slate-900;
+}
