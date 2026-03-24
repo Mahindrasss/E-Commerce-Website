@@ -1,0 +1,84 @@
+{
+  "info": {
+    "name": "ResellHub API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth Signup",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/auth/signup",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"New User\",\n  \"email\": \"new@demo.com\",\n  \"mobile\": \"9000000010\",\n  \"password\": \"Pass@123\",\n  \"role\": \"customer\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Storefront Meta",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/storefront"
+      }
+    },
+    {
+      "name": "Products List",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/products"
+      }
+    },
+    {
+      "name": "Create Order",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{customerToken}}" }
+        ],
+        "url": "{{baseUrl}}/orders",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"sellerId\": \"<seller-object-id>\",\n  \"items\": [{\"productId\": \"<product-id>\", \"quantity\": 1, \"resellerMargin\": 100}],\n  \"paymentMethod\": \"cod\",\n  \"couponCode\": \"WELCOME10\",\n  \"shippingAddress\": {\"line1\":\"MG Road\",\"city\":\"Bengaluru\",\"state\":\"KA\",\"pincode\":\"560001\"}\n}"
+        }
+      }
+    },
+    {
+      "name": "Add Review",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{customerToken}}" }
+        ],
+        "url": "{{baseUrl}}/reviews/{{productId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"rating\": 5,\n  \"title\": \"Great Product\",\n  \"comment\": \"Value for money\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Create Return Request",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{customerToken}}" }
+        ],
+        "url": "{{baseUrl}}/returns",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"orderId\": \"<order-id>\",\n  \"reason\": \"Damaged product\"\n}"
+        }
+      }
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000/api/v1" },
+    { "key": "customerToken", "value": "" },
+    { "key": "productId", "value": "" }
+  ]
+}
